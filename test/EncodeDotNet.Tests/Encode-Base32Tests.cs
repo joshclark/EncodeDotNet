@@ -28,6 +28,13 @@ namespace EncodeDotNet.Tests
             Assert.Equal(expectedValue, actual);
         }
 
+        [Theory, MemberData(nameof(CleanedUpInterestingStrings))]
+        public void EncodedValueMatchesExpectedString(string expectedString, long input)
+        {
+            string actual= Encode.ToBase32(input);
+            Assert.Equal(expectedString, actual);
+        }
+
         [Theory]
         [InlineData(0, 12)]
         [InlineData(100000, 12)]
@@ -64,6 +71,18 @@ namespace EncodeDotNet.Tests
                 new object[] { "1234-ILO1-ABCD", 38390583430294925 },    // similar looking characters
                 new object[] { "1234-ilo1-abcd", 38390583430294925 }     // similar looking lowercase characters
             };
+        }
+
+        private static IEnumerable<object[]> CleanedUpInterestingStrings()
+        {
+            return InterestingStrings().Select(x => new[]
+            {
+                x[0].ToString().ToUpperInvariant()
+                    .Replace("I", "1")
+                    .Replace("L", "1")
+                    .Replace("O", "0"),
+                x[1]
+            });
         }
 
     }

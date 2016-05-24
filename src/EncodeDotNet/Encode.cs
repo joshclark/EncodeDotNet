@@ -49,15 +49,24 @@ namespace EncodeDotNet
         }
         public static string ToBase32(long number, bool includeSeperator)
         {
+            int firstSeperatorIndex = 4;
+            int secondSeperatorIndex = 9;
+
             int size = 12 + (includeSeperator ? 2 : 0);
-            size += (number > Largest12DigitValue) ? 1 : 0;
+
+            if (number > Largest12DigitValue)
+            {
+                size++;
+                firstSeperatorIndex++;
+                secondSeperatorIndex++;
+            }
 
             char[] result = new char[size];
 
             int index = size - 1;
             do
             {
-                if (includeSeperator && ((index == 10) || (index == 4)))
+                if (includeSeperator && ((index == secondSeperatorIndex) || (index == firstSeperatorIndex)))
                 {
                     result[index--] = '-';
                 }
