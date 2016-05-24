@@ -1,0 +1,25 @@
+﻿{
+  "version": "1.0.0-*",
+  "testRunner": "xunit",
+
+  "dependencies": {
+    "EncodeDotNet": "1.0.0",
+    "xunit": "2.1.0",
+    "dotnet-test-xunit": "1.0.0-rc3-build10019"
+  },
+  
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [ "dnxcore50", "portable-net45+win8" ],
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0-rc2-3002702"
+        }
+      }
+    },
+    "net451": { }
+
+  }
+}
